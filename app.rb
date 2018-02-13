@@ -9,11 +9,22 @@
 #
 
 require 'sinatra'
-require './get'
+require './wall-pays'
 
 set :sessions, true
-set :server, :thin
+set :server, :puma
 set :server_settings, :timeout => 120
+set :threaded, true
+set :show_exceptions, true
+
+
+def valid_json?(json)
+    json = JSON.parse(json)
+    return json
+  rescue JSON::ParserError => e
+    return false
+end
+
 
 get '/' do
   "Here you can request info from pools for Monero address
@@ -25,7 +36,6 @@ post '/' do
   wallet = params['address']
   stream do |out|
     if params['address'] != nil
-      result={} # collect raw data for debug
       pool_threads=[]
       payments = WalletPayouts.new(wallet)
       Pools.api_url_for(wallet).each { |pool,url|
@@ -54,7 +64,7 @@ post '/' do
               payments.add_pool_payouts(pool, [paid, due])
             end
           end
-          result[wallet]={pool => data}
+          #imidiatly output to user from threads
           paid, due = paid.to_f/10**12, due.to_f/10**12
           out << "<b>" + pool.upcase + "</b>: "
           out << " Paid: " + "%.12f" % paid + ", Due: " + "%.12f" % due + "<br>"

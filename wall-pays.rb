@@ -4,8 +4,6 @@ require 'openssl'
 require 'json'
 OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE 
 
-
-
 class WalletPayouts
   
   def initialize(wallet)
@@ -50,18 +48,3 @@ class WalletPayouts
     piconero.to_f/10**12
   end
 end
-
-def valid_json?(json)
-    json = JSON.parse(json)
-    return json
-  rescue JSON::ParserError => e
-    return false
-end
-
-   
-#PRINT DATA
-# list_of_payments.each{|payments| payments.print}
-
-#RAW DATA 
-# uncomment for debug
-#puts result
