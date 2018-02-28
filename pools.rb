@@ -1,5 +1,5 @@
 class Pools
-  #Polls list for searching. Get from moneropools.com
+  #Polls list for searching. Mostly get from moneropools.com
 
   #Mapping pool and pool API to know how to get data.
   #pools_api {"pool1" => ["api_version", api_address], :pool2 => ["api_version", api_address] ...]}
@@ -12,7 +12,7 @@ class Pools
     "xmrpool.net" => [1, "https://api.xmrpool.net"], 
     "xmrpool.eu" => [2,"https://web.xmrpool.eu:8119"],
     "supportxmr.com" => [1, "https://supportxmr.com/api"],
-    "xmr.nanopool.org" => [0, "https://api.nanopool.org/v1/xmr/payments/"],
+    "xmr.nanopool.org" => [0, "https://xmr.nanopool.org/api/v1/load_account"],
     "mixpools.org" => [2, "https://mixpools.org:8117"],
   #  "dwarfpool.com" => [0, "http://dwarfpool.com/xmr/address?wallet="], has some emailpassword protection
     "viaxmr.com" => [1, "https://api.viaxmr.com"],
@@ -34,38 +34,44 @@ class Pools
     "pool.miners.pro" => [2, "http://pool.miners.pro:8117"],
   #  "https://xmr.minercircle.com:8079" => [2, "https://xmr.minercircle.com:8079"], has some password protection
     "cryptmonero.com" => [2, "http://46.165.232.77:8117"],
-    "monero.us.to" => [2, "http://174.138.53.64:8117"],
+    "monero.us.to" => [2, "http://monero.gt/api"],
     "monerohash.com" => [2, "https://monerohash.com/api"],
-    "usxmrpool.com" => [2, "https://www.usxmrpool.com:8119"],
+    "usxmrpool.com" => [2, "https://api.usxmrpool.com/api"],
     "xmrpool.xyz" => [1, "https://api.xmrpool.xyz"],
     "pooldd.com" => [2, "http://minexmr.pooldd.com:8080"],
     "monero.riefly.id" => [2, "https://xmr.riefly.id:8119"],
     # some strange pools
     "teracycle.net" => [2, "http://teracycle.net:8117"], #ALSO minemonero.gq
-    "ratchetmining.com" => [1, "https://ratchetmining.com"],
+    "ratchetmining.com" => [1, "https://ratchetmining.com/api"],
     "alimabi.cn" => [2, "http://118.190.133.167:81"],
     "secumine.net" => [1, "https://secumine.net/api"]
   }
 
-  def self.api_url_for(wallet)
-    api_urls_for_wallet={}
-    @@pools_api_base_url.each {|pool|
-      name = pool[0]
-      api_ver = pool[1][0]
-      base_url =  pool[1][1]
-      case api_ver
-        when 1 
-          api_urls_for_wallet[name] = base_url + "/miner/" + wallet + "/stats"
-        when 2
-          api_urls_for_wallet[name] = base_url + "/stats_address?address=" + wallet
-        else
-          api_urls_for_wallet[name] = base_url + wallet
+  def self.api_url_for(wallet, pool_data)
+    api_ver = pool_data[0]
+    base_url =  pool_data[1]
+    case api_ver
+      when 1 
+        base_url + "/miner/" + wallet + "/stats"
+      when 2
+        base_url + "/stats_address?address=" + wallet
+      else
+        base_url + "/" + wallet
       end
-    }
-    api_urls_for_wallet
   end
   
-  def self.get_api_ver(pool_name)
-    @@pools_api_base_url[pool_name][0]
-  end 
+  def self.count
+    @@pools_api_base_url.size
+  end
+
+  def self.all(wallet=false)
+    #update api url for current wallet
+    if wallet 
+      @@pools_api_base_url.each {|pool_name, pool_data|
+        @@pools_api_base_url[pool_name][1] = api_url_for(wallet, pool_data)
+      }
+    end
+    @@pools_api_base_url
+  end
+
 end

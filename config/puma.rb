@@ -4,4 +4,4 @@ workers 2
 preload_app!
 bind 'unix:///tmp/puma.sock'
 pidfile '/tmp/puma.pid'
-environment 'production'
+#environment $RACK_ENV

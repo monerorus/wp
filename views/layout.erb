@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%= erb (:head) %>
+    <body>
+        
+        <section class="container info-block">
+        	<h2>Scaning monero pools</h2>
+        	Here you can request info from pools for Monero address
+  			<form method='POST' action='/'>
+  				<input name='address' type=text maxlength="116" size="116">
+  				<input type=submit>
+  			</form> <br>
+  			<%= Pools.count %> pools for scan. Scaning take about minute. Timeout 10 sec per pool.
+      	</section>
+
+      	<section class="container info-block">
+      		<%= yield %>
+      	</section>
+
+    </body>
+</html>

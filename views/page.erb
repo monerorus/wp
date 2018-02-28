@@ -1,0 +1,20 @@
+<% if defined? payments %>
+	<table>
+		<caption><h1>Results</h1></caption>
+		<th>Pool Name</th>
+		<th>Piconero paid</th>
+		<th>Balance on pool</th>
+	  <% payments.payouts.each do |pool| %>
+		<tr>
+		    <td> <%= pool[0] %> </td>
+		    <td> <%= pool[1][0] %> </td>
+		    <td> <%= pool[1][1] %> </td>
+		</tr>
+	  <% end %>
+	  <tr>
+	  	<td> <b>Summary</b> </td>
+	  	<td> <b><%= payments.summary[0] %> XMR</b></td>
+	  	<td> <b><%= payments.summary[1] %> XMR</b></td>
+	  </tr>
+	</table>
+<% end %>
