@@ -14,7 +14,7 @@ end
 
 class WalletPayouts
   
-  attr_accessor :wallet, :payouts, :paid_pools
+  #attr_accessor :wallet, :payouts, :paid_pools
 
   def initialize(wallet)
       @wallet = wallet
@@ -28,6 +28,7 @@ class WalletPayouts
 
   def add_pool_payouts(pool, payouts)
     @paid_pools << pool
+    payouts.map!{|piconero| to_xmr(piconero)} #piconero to xmr
     @payouts[pool] = payouts
   end
 
@@ -38,7 +39,7 @@ class WalletPayouts
       total_paid += payout[0].to_f
       total_due += payout[1].to_f
     }
-    [to_xmr(total_paid), to_xmr(total_due)]
+    [total_paid, total_due]
   end
 
   def to_xmr(piconero)
@@ -52,11 +53,18 @@ class WalletPayouts
     Pools.all(@wallet).each { |pool|
       
       pool_threads << Thread.new(pool) {|pool|
+        
+        start = Time.now
         pool_name = pool[0]
         url = pool[1][1]
         api_ver = pool[1][0]
         output_stream << "<b>" + pool_name.upcase + "</b>: " if output_stream != nil
-        data = URI.parse(url).open(:read_timeout => 10).read rescue next
+        begin
+          data = open(url, {:read_timeout => 5,:open_timeout=>2}).read 
+        rescue 
+          puts "timouted Thread " + pool_name + ":" + "#{Time.now-start}"
+          next
+        end
         if data = valid_json?(data)
           case api_ver 
             when  0 
@@ -81,16 +89,17 @@ class WalletPayouts
                 due = 0
               end
           end
-          if (paid != 0 || due != 0)
+          if (paid.to_f != 0 || due.to_f != 0) #sometimes pool request '0.0' str as balances
             add_pool_payouts(pool_name, [paid, due])
           end
         end
         #imidiatly output to user from threads
         paid, due = paid.to_f/10**12, due.to_f/10**12 if output_stream != nil
-        
+        puts paid, due = paid.to_f/10**12, due.to_f/10**12
         output_stream << " Paid: " + "%.12f" % paid + ", Due: " + "%.12f" % due + "<br>" if output_stream != nil
+        puts "thread time:" + "#{Time.now-start}"
       }
-      pool_threads.each {|thr| thr.join}
+      pool_threads.map(&:join)
     }
     output_stream << summary if output_stream != nil
   end

@@ -41,7 +41,7 @@ class Pools
     "pooldd.com" => [2, "http://minexmr.pooldd.com:8080"],
     "monero.riefly.id" => [2, "https://xmr.riefly.id:8119"],
     # some strange pools
-    "teracycle.net" => [2, "http://teracycle.net:8117"], #ALSO minemonero.gq
+    #"teracycle.net" => [2, "http://teracycle.net:8117"], #ALSO minemonero.gq, dead
     "ratchetmining.com" => [1, "https://ratchetmining.com/api"],
     "alimabi.cn" => [2, "http://118.190.133.167:81"],
     "secumine.net" => [1, "https://secumine.net/api"]

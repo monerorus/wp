@@ -13,7 +13,7 @@ require './wall-pays'
 
 set :sessions, true
 set :server, :puma
-set :server_settings, :timeout => 120
+set :server_settings, :timeout => 30
 set :threaded, true
 set :show_exceptions, false
 

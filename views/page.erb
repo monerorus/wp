@@ -7,8 +7,8 @@
 	  <% payments.payouts.each do |pool| %>
 		<tr>
 		    <td> <%= pool[0] %> </td>
-		    <td> <%= pool[1][0] %> </td>
-		    <td> <%= pool[1][1] %> </td>
+		    <td> <%= "%.12f" % pool[1][0] %> </td>
+		    <td> <%= "%.12f" % pool[1][1] %> </td>
 		</tr>
 	  <% end %>
 	  <tr>
