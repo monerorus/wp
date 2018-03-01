@@ -53,14 +53,14 @@ class WalletPayouts
     Pools.all(@wallet).each { |pool|
       
       pool_threads << Thread.new(pool) {|pool|
-        
+
         start = Time.now
         pool_name = pool[0]
         url = pool[1][1]
         api_ver = pool[1][0]
         output_stream << "<b>" + pool_name.upcase + "</b>: " if output_stream != nil
         begin
-          data = open(url, {:read_timeout => 5,:open_timeout=>2}).read 
+          data = URI.parse(url).open(:read_timeout => 2).read
         rescue 
           puts "timouted Thread " + pool_name + ":" + "#{Time.now-start}"
           next
