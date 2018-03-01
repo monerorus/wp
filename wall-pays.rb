@@ -60,7 +60,7 @@ class WalletPayouts
         api_ver = pool[1][0]
         output_stream << "<b>" + pool_name.upcase + "</b>: " if output_stream != nil
         begin
-          data = URI.parse(url).open(:read_timeout => 2).read
+          data = URI.parse(url).open({:read_timeout => 5, :open_timeout=>2}).read 
         rescue 
           puts "timouted Thread " + pool_name + ":" + "#{Time.now-start}"
           next
