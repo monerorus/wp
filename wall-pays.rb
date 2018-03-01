@@ -60,9 +60,9 @@ class WalletPayouts
         api_ver = pool[1][0]
         output_stream << "<b>" + pool_name.upcase + "</b>: " if output_stream != nil
         begin
-          data = URI.parse(url).open({:read_timeout => 5, :open_timeout=>2}).read 
+          data = open(URI.parse(url),{:read_timeout => 5,:open_timeout=>2}).read 
         rescue 
-          puts "timouted Thread " + pool_name + ":" + "#{Time.now-start}"
+          puts "open error " + pool_name + ":" + "#{Time.now-start}"
           next
         end
         if data = valid_json?(data)
@@ -94,10 +94,9 @@ class WalletPayouts
           end
         end
         #imidiatly output to user from threads
-        paid, due = paid.to_f/10**12, due.to_f/10**12 if output_stream != nil
-        puts paid, due = paid.to_f/10**12, due.to_f/10**12
         output_stream << " Paid: " + "%.12f" % paid + ", Due: " + "%.12f" % due + "<br>" if output_stream != nil
-        puts "thread time:" + "#{Time.now-start}"
+        puts pool_name + " time:" + "#{Time.now-start}"
+        puts paid, due
       }
       pool_threads.map(&:join)
     }

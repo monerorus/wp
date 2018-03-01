@@ -35,7 +35,7 @@ class Pools
   #  "https://xmr.minercircle.com:8079" => [2, "https://xmr.minercircle.com:8079"], has some password protection
     "cryptmonero.com" => [2, "http://46.165.232.77:8117"],
     "monero.us.to" => [2, "http://monero.gt/api"],
-    "monerohash.com" => [2, "https://monerohash.com/api"],
+    "monerohash.com" => [2, "https://monerohash.com/api"], #long responce from api.
     "usxmrpool.com" => [2, "https://api.usxmrpool.com/api"],
     "xmrpool.xyz" => [1, "https://api.xmrpool.xyz"],
     "pooldd.com" => [2, "http://minexmr.pooldd.com:8080"],

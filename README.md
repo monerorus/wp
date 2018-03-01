@@ -2,6 +2,8 @@
 Get wallet stats from monero pools.
 You can try it [here](https://poolspayments.herokuapp.com/).
 Based on ```cli.rb``` script.
+Heroku router has 30s timeout thats why i set small timeouts for pool request. 
+For example monerohash.com has long response about 10sec and don't include in scan results (on heroku)
 
 # CLI
 cli.rb was writen as proof of concept for [article](https://xmr.ru/threads/186/).
