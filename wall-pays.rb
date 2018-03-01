@@ -14,20 +14,13 @@ end
 
 class WalletPayouts
   
-  #attr_accessor :wallet, :payouts, :paid_pools
+  attr_accessor :wallet, :payouts, :scaned_pools
 
   def initialize(wallet)
       @wallet = wallet
       @payouts = {} # struct {:pool_name => [paid,due]}
       @paid_pools = []
       @scaned_pools = 0
-  end
-
-  def payouts
-    @payouts
-  end
-  def scaned_pools
-    @scaned_pools
   end
 
   def add_pool_payouts(pool, payouts)

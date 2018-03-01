@@ -1,6 +1,11 @@
 <% if defined? wall_payments %>
 	<table>
-		<caption><h1>Results</h1></caption>
+		<caption>
+      <h1>Results</h1>
+      <small>
+        for <%= wall_payments.wallet%>
+      </small>
+    </caption>
 		<th>Pool Name</th>
 		<th>Paid</th>
 		<th>Balance on pool</th>
