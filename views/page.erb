@@ -1,10 +1,10 @@
-<% if defined? payments %>
+<% if defined? wall_payments %>
 	<table>
 		<caption><h1>Results</h1></caption>
 		<th>Pool Name</th>
-		<th>Piconero paid</th>
+		<th>Paid</th>
 		<th>Balance on pool</th>
-	  <% payments.payouts.each do |pool| %>
+	  <% wall_payments.payouts.each do |pool| %>
 		<tr>
 		    <td> <%= pool[0] %> </td>
 		    <td> <%= "%.12f" % pool[1][0] %> </td>
@@ -13,8 +13,9 @@
 	  <% end %>
 	  <tr>
 	  	<td> <b>Summary</b> </td>
-	  	<td> <b><%= payments.summary[0] %> XMR</b></td>
-	  	<td> <b><%= payments.summary[1] %> XMR</b></td>
+	  	<td> <b><%= wall_payments.summary[0] %> XMR</b></td>
+	  	<td> <b><%= wall_payments.summary[1] %> XMR</b></td>
 	  </tr>
 	</table>
+  Scaned pools: <%= wall_payments.scaned_pools %>
 <% end %>

@@ -20,10 +20,14 @@ class WalletPayouts
       @wallet = wallet
       @payouts = {} # struct {:pool_name => [paid,due]}
       @paid_pools = []
+      @scaned_pools = 0
   end
 
   def payouts
     @payouts
+  end
+  def scaned_pools
+    @scaned_pools
   end
 
   def add_pool_payouts(pool, payouts)
@@ -46,10 +50,9 @@ class WalletPayouts
     piconero.to_f/10**12
   end
 
-
   def get!(output_stream=nil)
     pool_threads=[]
-
+    bad_req=0
     Pools.all(@wallet).each { |pool|
       
       pool_threads << Thread.new(pool) {|pool|
@@ -60,9 +63,13 @@ class WalletPayouts
         api_ver = pool[1][0]
         output_stream << "<b>" + pool_name.upcase + "</b>: " if output_stream != nil
         begin
-          data = open(URI.parse(url),{:read_timeout => 5,:open_timeout=>2}).read 
-        rescue 
+          puts url
+          data = open(URI.parse(url),{:read_timeout => 3,:open_timeout=>3}).read
+        rescue
           puts "open error " + pool_name + ":" + "#{Time.now-start}"
+          bad_req = bad_req + 1 
+          @scaned_pools = Pools.count - bad_req
+          puts bad_req
           next
         end
         if data = valid_json?(data)

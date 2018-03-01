@@ -42,7 +42,7 @@ get "/address/:address" do
 
     payments.get!
 puts payments.inspect #for debug
-    erb :page, :locals => {:payments => payments}
+    erb :page, :locals => {:wall_payments => payments}
   end
 
 end
