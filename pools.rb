@@ -66,12 +66,13 @@ class Pools
 
   def self.all(wallet=false)
     #update api url for current wallet
+    pools_api_url = {}
     if wallet 
       @@pools_api_base_url.each {|pool_name, pool_data|
-        @@pools_api_base_url[pool_name][1] = api_url_for(wallet, pool_data)
+        pools_api_url[pool_name] = [pool_data[0], api_url_for(wallet, pool_data)]
       }
     end
-    @@pools_api_base_url
+    pools_api_url
   end
 
 end
