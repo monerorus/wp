@@ -43,7 +43,7 @@ class WalletPayouts
     piconero.to_f/10**12
   end
 
-  def get!(output_stream=nil)
+  def get!
     pool_threads=[]
     bad_req=0
     Pools.all(@wallet).each { |pool|
@@ -54,7 +54,6 @@ class WalletPayouts
         pool_name = pool[0]
         url = pool[1][1]
         api_ver = pool[1][0]
-        output_stream << "<b>" + pool_name.upcase + "</b>: " if output_stream != nil
         begin
           puts url
           data = open(URI.parse(url),{:read_timeout => 3,:open_timeout=>3}).read
@@ -89,19 +88,13 @@ class WalletPayouts
                 due = 0
               end
           end
-          if (paid.to_f != 0 || due.to_f != 0) #sometimes pool request '0.0' str as balances
+          if (paid.to_f != 0 || due.to_f != 0) #sometimes pool request '0.0' str as balance
             add_pool_payouts(pool_name, [paid, due])
           end
         end
-        #imidiatly output to user from threads
-        output_stream << " Paid: " + "%.12f" % paid + ", Due: " + "%.12f" % due + "<br>" if output_stream != nil
-        puts pool_name + " time:" + "#{Time.now-start}"
-        puts paid, due
       }
       pool_threads.map(&:join)
     }
-    output_stream << summary if output_stream != nil
   end
-
 
 end

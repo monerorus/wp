@@ -32,16 +32,7 @@ get "/address/:address" do
   wallet = params['address']
   if wallet != nil
     payments = WalletPayouts.new(wallet)
-
-    # stream do |out|
-    #   payments.get!(out)
-    #   out << "Once more?:  <form method='POST' action='/'><input name='address' type=text><input type=submit></form>"
-    #   out << payments.inspect
-    #   out << payments.payouts.size
-    # end
-
     payments.get!
-puts payments.inspect #for debug
     erb :page, :locals => {:wall_payments => payments}
   end
 

@@ -7,6 +7,17 @@ body {
     background-color: #edeef0;
 }
 
+a {
+    color: #ff7519;
+    text-decoration: none;
+    padding:0.3rem;
+}
+
+a:hover, a:focus, a:active {
+    text-decoration: underline;
+    outline: 0;
+}
+
 form > input {
 	margin: 0.3rem
 }
