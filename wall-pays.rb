@@ -55,13 +55,10 @@ class WalletPayouts
         url = pool[1][1]
         api_ver = pool[1][0]
         begin
-          puts url
           data = open(URI.parse(url),{:read_timeout => 3,:open_timeout=>3}).read
         rescue
-          puts "open error " + pool_name + ":" + "#{Time.now-start}"
           bad_req = bad_req + 1 
           @scaned_pools = Pools.count - bad_req
-          puts bad_req
           next
         end
         if data = valid_json?(data)
