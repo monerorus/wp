@@ -71,8 +71,10 @@ class Pools
       @@pools_api_base_url.each {|pool_name, pool_data|
         pools_api_url[pool_name] = [pool_data[0], api_url_for(wallet, pool_data)]
       }
+      pools_api_url
+    else
+      @@pools_api_base_url
     end
-    pools_api_url
   end
 
 end

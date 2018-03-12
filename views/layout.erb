@@ -7,7 +7,7 @@
         	<h2>Scaning monero pools</h2>
         	Here you can request info from pools for Monero address
   			<form method='POST' action='/'>
-  				<input name='address' type=text maxlength="116" size="116">
+  				<input name='address' type=text maxlength="116" id=address_field>
   				<input type=submit>
   			</form> <br>
   			<%= Pools.count %> pools for scan. Scaning take about minute. Request timeout 6 sec per pool.
@@ -15,6 +15,8 @@
 
       	<section class="container info-block">
       		<%= yield %>
+      		<br>
+      		<a href="https://github.com/monerorus/wp">Github</a>
       	</section>
 
     </body>

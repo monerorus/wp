@@ -25,9 +25,55 @@ td {
 }
 
 @media only screen and (min-width: 75em) {
-  .container {
+	body p, body blockquote, body ul {
+    font-size: 16px;
+    font-size: 1rem;
+	} 
+	.container {
     width: 71rem;
+	}
+	input#address_field {
+		width: 60rem;
+	}
 }
+
+@media only screen and (max-width: 62rem) {
+ 	input#address_field {
+		width: 50rem;
+	}   
+	.info-block {
+	    padding: 2.5rem 1.8rem;
+	}  
+	h2, .info-block h2 { 
+    font-size: 23px;
+    font-size: 	1.5625rem;
+    margin-bottom: 0;
+	}
+}    
+
+@media only screen and (max-width: 48rem) {
+  body {font-size: 1rem;} 
+	.info-block {
+	    margin-bottom: 0.5rem;
+	}
+	input#address_field {
+		width: 40rem;
+	}
+}
+
+@media only screen and (max-width: 30rem) {
+  input#address_field {
+		width: 20rem;
+	}  
+	.info-block {
+	    padding: 2rem 1rem;
+	    margin-bottom: 0.5rem;
+	}
+  h2, .info-block h2 {
+  	font-size: 1.4rem;
+	}
+}
+
 
 .info-block {
 	background-color: #ffffff;
