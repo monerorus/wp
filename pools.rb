@@ -45,7 +45,22 @@ class Pools
     "pooldd.com" => [2, "http://minexmr.pooldd.com:8080"],
     "monero.riefly.id" => [2, "https://xmr.riefly.id:8119"],
     "ratchetmining.com" => [1, "https://ratchetmining.com/api"],
-    "secumine.net" => [1, "https://secumine.net/api"]
+    "secumine.net" => [1, "https://secumine.net/api"],
+    "multipooler.com" => [2, "https://multipooler.com:8119"],
+    "mine.pro" => [1, "https://xmr.mine.pro/api"],
+    "monero.miners.pro" => [2, "https://apimonero.miners.pro"],
+    "steadyhash.org" => [2, "https://xmr.steadyhash.org/api"],
+    "monero.pool-moscow.ru" => [1, "https://monero.pool-moscow.ru/api"],
+    "cryptoknight.cc" => [2, "https://cryptoknight.cc/rpc/xmr"],
+    "monero.miner.rocks" => [2, "https://monero.miner.rocks/api"],
+    "monero.fairhash.org" => [2, "https://monero.fairhash.org/api"],
+    "monero.spacepools.org" => [2, "https://monero.spacepools.org/api"],
+    "xmr.1dig.pro" => [2, "http://xmr.1dig.pro:8117"],
+    "xmr.pool.gntl.co.uk" => [1, "https://xmr.pool.gntl.co.uk/api"],
+    "monero.gt" => [1, "https://monero.gt/api"],
+    "xmr.cryptopool.space" => [1, "https://xmr.cryptopool.space/api"],
+    "mychainpools.com" => [2, "https://mychainpools.com:8118"],
+    "xmr.minercountry.com" => [2, "https://xmr.minercountry.com:8444"],
   }
 
   def self.api_url_for(wallet, pool_data)
