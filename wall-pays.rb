@@ -58,7 +58,7 @@ class WalletPayouts
           data = open(URI.parse(url),{:read_timeout => 2,:open_timeout=>2}).read
         rescue
           bad_req = bad_req + 1
-          puts pool_name
+          puts "================================= "+ pool_name
           @scaned_pools = Pools.count - bad_req
           next
         end
