@@ -20,7 +20,7 @@ class WalletPayouts
       @wallet = wallet
       @payouts = {} # struct {:pool_name => [paid,due]}
       @paid_pools = []
-      @scaned_pools = 0
+      @scaned_pools = Pools.count
   end
 
   def add_pool_payouts(pool, payouts)
