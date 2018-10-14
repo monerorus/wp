@@ -55,7 +55,7 @@ class WalletPayouts
         url = pool[1][1]
         api_ver = pool[1][0]
         begin
-          data = open(URI.parse(url),{:read_timeout => 3,:open_timeout=>3}).read
+          data = open(URI.parse(url),{:read_timeout => 2,:open_timeout=>2}).read
         rescue
           bad_req = bad_req + 1 
           @scaned_pools = Pools.count - bad_req
