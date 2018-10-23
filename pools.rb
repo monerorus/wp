@@ -46,7 +46,6 @@ class Pools
     "monero.spacepools.org" => [2, "https://monero.spacepools.org/api"],
     "xmr.1dig.pro" => [2, "http://xmr.1dig.pro:8117"],
     "xmr.pool.gntl.co.uk" => [1, "https://xmr.pool.gntl.co.uk/api"],
-    "monero.gt" => [1, "https://monero.gt/api"],
     "xmr.cryptopool.space" => [1, "https://xmr.cryptopool.space/api"],
     "mychainpools.com" => [2, "https://mychainpools.com:8118"],
     "xmr.minercountry.com" => [2, "https://xmr.minercountry.com:8444"],
